@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AML002 Capstone Assignment — Interactive Student Notes</title>
+<style>
+:root{--bg:#f6f8fc;--card:#fff;--ink:#1c2436;--soft:#4b5568;--p:#3454d1;--d:#233a94;--b:#eaf1ff;--g:#eafbf0;--o:#fff3e6;--r:#fdeded;--u:#f3ecff;--y:#fff8e1;--t:#e6fbf8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif;line-height:1.68}
+.layout{display:grid;grid-template-columns:290px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;overflow:auto;background:#fff;border-right:1px solid #e3e7f0;padding:18px 14px}.side h4{color:var(--d);letter-spacing:.07em;margin:5px 8px 14px}.side a{display:block;padding:7px 9px;border-radius:8px;color:var(--soft);font-size:12px;text-decoration:none;line-height:1.4}.side a:hover,.side a.active{background:var(--b);color:var(--d)}.nav-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:800;color:#7b8497;margin:15px 8px 5px}
+main{max-width:1250px;width:100%;margin:auto;padding:26px 34px 70px}.cover{background:linear-gradient(135deg,#132f55,#3454d1,#7c3aed);color:#fff;border-radius:22px;padding:42px;margin-bottom:24px;box-shadow:0 12px 32px #1d294720}.cover .tag{font-size:13px;letter-spacing:.06em;text-transform:uppercase}.cover h1{font-size:42px;line-height:1.15;margin:12px 0}.cover p{font-size:19px;max-width:900px}.meta{display:flex;gap:9px;flex-wrap:wrap}.meta span{background:#ffffff20;padding:7px 12px;border-radius:20px;font-size:13px}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid #e3e7f0;border-radius:14px;padding:12px;margin:0 0 25px;position:sticky;top:8px;z-index:5;box-shadow:0 4px 15px #1d294710}.toolbar input{flex:1;min-width:180px;border:1px solid #d7deeb;border-radius:9px;padding:10px 12px;font-size:14px}.btn{border:0;background:var(--p);color:#fff;padding:10px 13px;border-radius:9px;cursor:pointer;font-weight:700}.btn.secondary{background:#eef2ff;color:var(--d)}.progress-wrap{font-size:12px;color:var(--soft);min-width:120px}.progress{height:6px;background:#e7ebf4;border-radius:9px;overflow:hidden;margin-top:4px}.progress span{display:block;height:100%;width:0;background:var(--p);transition:width .2s}
+.chapter{margin:32px 0;scroll-margin-top:85px}.head{display:flex;gap:12px;align-items:center;margin-bottom:13px}.num{width:42px;height:42px;border-radius:12px;background:var(--p);color:#fff;display:grid;place-items:center;font-weight:700;flex-shrink:0}.head small{text-transform:uppercase;letter-spacing:.11em;color:var(--p);font-weight:700}.head h2{margin:2px 0;font-size:27px;line-height:1.25}.card{background:#fff;border:1px solid #e3e7f0;border-radius:16px;padding:20px;box-shadow:0 4px 18px #1d294714}.content-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.content-box{border:1px solid #dfe5ef;border-radius:13px;padding:14px;min-width:0;overflow-wrap:anywhere}.content-box:nth-child(4n+1){background:var(--b)}.content-box:nth-child(4n+2){background:#fff}.content-box:nth-child(4n+3){background:var(--t)}.content-box:nth-child(4n){background:#fff8e1}.content-box p{margin:0}.content-box ul,.content-box ol{margin:0;padding-left:22px}.content-box li{margin:4px 0}pre{background:#172033;color:#f5f7fb;padding:16px;border-radius:11px;overflow:auto;line-height:1.5;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:inherit;background:none;padding:0}code{background:#eef1fa;color:#233a94;padding:2px 5px;border-radius:5px;font-family:Consolas,monospace}.slide-meta{color:var(--soft);font-size:12px;margin-top:13px;border-top:1px solid #edf0f5;padding-top:10px}.checkline{display:flex;align-items:center;gap:8px;margin-top:12px;color:var(--soft);font-size:13px}.checkline input{accent-color:var(--p);width:16px;height:16px}.quick-tip{background:var(--y);border:1px solid #ffe58f;padding:12px 14px;border-radius:12px;margin-bottom:20px}.footer{text-align:center;color:var(--soft);border-top:1px solid #e3e7f0;padding-top:20px;margin-top:50px}.empty{display:none;background:white;padding:20px;border-radius:12px}
+@media(max-width:950px){.layout{grid-template-columns:1fr}.side{display:none}main{padding:16px}.content-grid{grid-template-columns:1fr}.cover h1{font-size:34px}.toolbar{position:static}.head h2{font-size:23px}}
+@media print{.side,.toolbar,.checkline{display:none!important}.layout{display:block}main{max-width:none;padding:0}.cover{break-after:page}.chapter{break-inside:avoid;page-break-inside:avoid}.card{box-shadow:none}.content-grid{grid-template-columns:1fr 1fr}body{background:#fff}}
+</style></head><body><div class="layout">
+<nav class="side"><h4>AML002 · CAPSTONE</h4>
+<div class="nav-group"><div class="nav-label">Start here</div>
+<a href="#s1" data-nav-slide="1">01 · Capstone Assignment</a>
+<a href="#s2" data-nav-slide="2">02 · One project, five phases</a>
+<a href="#s3" data-nav-slide="3">03 · What is a Data Science project?</a>
+<a href="#s4" data-nav-slide="4">04 · Student Performance Analysis</a>
+</div>
+<div class="nav-group"><div class="nav-label">Assessment &amp; phases</div>
+<a href="#s5" data-nav-slide="5">05 · Five phases · 100 project marks</a>
+<a href="#s6" data-nav-slide="6">06 · Define the problem &amp; understand the data</a>
+<a href="#s7" data-nav-slide="7">07 · Clean, wrangle and explore</a>
+<a href="#s8" data-nav-slide="8">08 · Visualise data and explain insights</a>
+<a href="#s9" data-nav-slide="9">09 · Machine Learning — only when it fits</a>
+</div>
+<div class="nav-group"><div class="nav-label">Notebook &amp; project work</div>
+<a href="#s10" data-nav-slide="10">10 · Recommended notebook structure</a>
+<a href="#s11" data-nav-slide="11">11 · Load and inspect your dataset</a>
+<a href="#s12" data-nav-slide="12">12 · Possible project domains</a>
+<a href="#s13" data-nav-slide="13">13 · What you must be ready to show</a>
+<a href="#s14" data-nav-slide="14">14 · Start your capstone in class</a>
+<a href="#s15" data-nav-slide="15">15 · Three questions to remember</a>
+</div>
+<div class="nav-group"><div class="nav-label">Worked example</div>
+<a href="#s16" data-nav-slide="16">16 · Mini-project: Student Performance Analysis</a>
+<a href="#s17" data-nav-slide="17">17 · What should your result look like?</a>
+</div>
+<div class="nav-group"><div class="nav-label">GitHub publishing</div>
+<a href="#s18" data-nav-slide="18">18 · How to organise the same project on GitHub</a>
+<a href="#s19" data-nav-slide="19">19 · Upload your project in 7 simple steps</a>
+<a href="#s20" data-nav-slide="20">20 · What to write in README.md</a>
+<a href="#s21" data-nav-slide="21">21 · Before you submit, check these five things</a>
+</div>
+<div class="nav-group"><div class="nav-label">Dataset sourcing</div>
+<a href="#s22" data-nav-slide="22">22 · Where can you find a dataset?</a>
+<a href="#s23" data-nav-slide="23">23 · How to download a dataset from Kaggle</a>
+<a href="#s24" data-nav-slide="24">24 · Record the source and check permission</a>
+<a href="#s25" data-nav-slide="25">25 · GitHub examples students can study</a>
+<a href="#s26" data-nav-slide="26">26 · Learn from references. Build your own project.</a>
+</div>
+</nav><main>
+<header class="cover"><span class="tag">B.Sc. (Hons.) Data Science · Semester I · AML002</span>
+<h1>Capstone Assignment</h1>
+<p>From a real-world question to an evidence-based Data Science solution. Use these interactive notes as a step-by-step reference while planning, building, documenting and sharing your project.</p>
+<div class="meta"><span>📘 Beginner-friendly</span><span>🧭 Project workflow</span><span>🐍 Pandas + Colab</span><span>📊 Charts + insights</span><span>🌐 Kaggle + GitHub</span><span>✅ Submission checklist</span></div></header>
+<div class="quick-tip"><b>How to use this page:</b> Search for a topic, jump to a section from the left menu, mark sections complete as you work, or use <b>Print / Save PDF</b> to keep an offline copy.</div>
+<div class="toolbar"><input id="searchBox" type="search" placeholder="Search notes (e.g., Kaggle, missing values, GitHub)…" aria-label="Search notes"><button class="btn secondary" id="clearSearch">Clear search</button><button class="btn" onclick="window.print()">Print / Save PDF</button><div class="progress-wrap"><span id="progressText">0 of 26 reviewed</span><div class="progress"><span id="progressBar"></span></div></div></div>
+<div id="emptyState" class="empty">No matching sections. Try another keyword.</div>
+
+
+<section class="chapter" id="s2" data-slide="2" data-search="today&#x27;s flow one project, five phases start with a clear question, then build the solution step by step. aml002 · introduction to data science · capstone assignment 2 1 · define problem + objective
+
+what do you want to understand or predict? 2 · understand dataset + columns
+
+where did the data come from? what does it contain? 3 · prepare &amp; explore clean + analyse
+
+check quality, summarise data and find patterns. 4 · visualise / model evidence + evaluation
+
+use charts and a model only when appropriate. 5 · communicate findings + demo
+
+explain what you learned and what the limits are. warm-up: if a college wants to understand student performance, what data might be useful? think · discuss with a partner · share one idea">
+<div class="head"><div class="num">02</div><div><small>TODAY&#x27;S FLOW</small><h2>One project, five phases</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Start with a clear question, then build the solution step by step.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>2</p></div><div class="content-box"><p>1 · DEFINE</p></div><div class="content-box"><p>Problem + objective<br>What do you want to understand or predict?</p></div><div class="content-box"><p>2 · UNDERSTAND</p></div><div class="content-box"><p>Dataset + columns<br>Where did the data come from? What does it contain?</p></div><div class="content-box"><p>3 · PREPARE &amp; EXPLORE</p></div><div class="content-box"><p>Clean + analyse<br>Check quality, summarise data and find patterns.</p></div><div class="content-box"><p>4 · VISUALISE / MODEL</p></div><div class="content-box"><p>Evidence + evaluation<br>Use charts and a model only when appropriate.</p></div><div class="content-box"><p>5 · COMMUNICATE</p></div><div class="content-box"><p>Findings + demo<br>Explain what you learned and what the limits are.</p></div><div class="content-box"><p>Warm-up: If a college wants to understand student performance, what data might be useful?</p></div><div class="content-box"><p>Think · discuss with a partner · share one idea</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="2"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 2 of 26</div>
+</div></section>
+
+<section class="chapter" id="s3" data-slide="3" data-search="start here what is a data science project? a structured way to answer a real question using data, analysis and clear reasoning. aml002 · introduction to data science · capstone assignment 3 real-world problem example: why do some students score higher than others? data + methods attendance, study hours, assignment marks and grades; python, pandas and charts. useful outcome find patterns and communicate evidence. prediction is optional when it does not fit the question. key message: the goal is not to write the most code — it is to answer a meaningful question responsibly.">
+<div class="head"><div class="num">03</div><div><small>START HERE</small><h2>What is a Data Science project?</h2></div></div>
+<div class="card">
+<p class="section-subtitle">A structured way to answer a real question using data, analysis and clear reasoning.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>3</p></div><div class="content-box"><p>REAL-WORLD PROBLEM</p></div><div class="content-box"><p>Example: Why do some students score higher than others?</p></div><div class="content-box"><p>DATA + METHODS</p></div><div class="content-box"><p>Attendance, study hours, assignment marks and grades; Python, Pandas and charts.</p></div><div class="content-box"><p>USEFUL OUTCOME</p></div><div class="content-box"><p>Find patterns and communicate evidence. Prediction is optional when it does not fit the question.</p></div><div class="content-box"><p>Key message: the goal is not to write the most code — it is to answer a meaningful question responsibly.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="3"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 3 of 26</div>
+</div></section>
+
+<section class="chapter" id="s4" data-slide="4" data-search="running example student performance analysis use this example to understand the workflow; you may choose another approved topic. aml002 · introduction to data science · capstone assignment 4 question which factors are associated with student marks?
+
+possible variables:
+• attendance
+• study hours
+• assignment marks
+• final grades what you do 1. inspect the dataset
+2. clean missing / duplicate data
+3. compare groups
+4. create charts
+5. explain patterns what you report • what did you discover?
+• what evidence supports it?
+• what cannot be concluded?
+• what would you improve next? avoid claiming that one factor causes another unless your study design supports causation.">
+<div class="head"><div class="num">04</div><div><small>RUNNING EXAMPLE</small><h2>Student Performance Analysis</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Use this example to understand the workflow; you may choose another approved topic.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>4</p></div><div class="content-box"><p>QUESTION</p></div><div class="content-box"><p>Which factors are associated with student marks?<br>Possible variables:<br>• Attendance<br>• Study hours<br>• Assignment marks<br>• Final grades</p></div><div class="content-box"><p>WHAT YOU DO</p></div><div class="content-box"><ol><li>1. Inspect the dataset</li><li>2. Clean missing / duplicate data</li><li>3. Compare groups</li><li>4. Create charts</li><li>5. Explain patterns</li></ol></div><div class="content-box"><p>WHAT YOU REPORT</p></div><div class="content-box"><ul><li>• What did you discover?</li><li>• What evidence supports it?</li><li>• What cannot be concluded?</li><li>• What would you improve next?</li></ul></div><div class="content-box"><p>Avoid claiming that one factor causes another unless your study design supports causation.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="4"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 4 of 26</div>
+</div></section>
+
+<section class="chapter" id="s5" data-slide="5" data-search="assessment overview five phases · 100 project marks each phase contributes 20 marks. the course assessment may scale the score as instructed. aml002 · introduction to data science · capstone assignment 5 01 problem definition &amp; data understanding problem, objective, dataset source, columns and data types 20 marks 02 cleaning, wrangling &amp; eda missing values, duplicates, summaries and patterns 20 marks 03 visualisation &amp; insights clear charts, labels, interpretations and relevant relationships 20 marks 04 model / analytical evaluation suitable model and metrics, or approved analytical alternative 20 marks 05 report, conclusion &amp; demonstration organised notebook, findings, limitations and explanation 20 marks">
+<div class="head"><div class="num">05</div><div><small>ASSESSMENT OVERVIEW</small><h2>Five phases · 100 project marks</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Each phase contributes 20 marks. The course assessment may scale the score as instructed.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>5</p></div><div class="content-box"><p>01</p></div><div class="content-box"><p>Problem definition &amp; data understanding</p></div><div class="content-box"><p>Problem, objective, dataset source, columns and data types</p></div><div class="content-box"><p>20 marks</p></div><div class="content-box"><p>02</p></div><div class="content-box"><p>Cleaning, wrangling &amp; EDA</p></div><div class="content-box"><p>Missing values, duplicates, summaries and patterns</p></div><div class="content-box"><p>20 marks</p></div><div class="content-box"><p>03</p></div><div class="content-box"><p>Visualisation &amp; insights</p></div><div class="content-box"><p>Clear charts, labels, interpretations and relevant relationships</p></div><div class="content-box"><p>20 marks</p></div><div class="content-box"><p>04</p></div><div class="content-box"><p>Model / analytical evaluation</p></div><div class="content-box"><p>Suitable model and metrics, or approved analytical alternative</p></div><div class="content-box"><p>20 marks</p></div><div class="content-box"><p>05</p></div><div class="content-box"><p>Report, conclusion &amp; demonstration</p></div><div class="content-box"><p>Organised notebook, findings, limitations and explanation</p></div><div class="content-box"><p>20 marks</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="5"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 5 of 26</div>
+</div></section>
+
+<section class="chapter" id="s6" data-slide="6" data-search="phase 1 · 20 marks define the problem &amp; understand the data before coding, be clear about what you are trying to answer. aml002 · introduction to data science · capstone assignment 6 your task • write a focused problem statement
+• set one or more measurable objectives
+• record the dataset source
+• explain important columns and data types
+• load data and inspect the first rows starter checks df.head()  → first rows
+df.shape  → rows and columns
+df.info()  → data types / non-null counts
+df.dtypes  → type of each column
+
+df.describe()  → numerical summary checkpoint: can you explain what each column means and why it is relevant to your question?">
+<div class="head"><div class="num">06</div><div><small>PHASE 1 · 20 MARKS</small><h2>Define the problem &amp; understand the data</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Before coding, be clear about what you are trying to answer.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>6</p></div><div class="content-box"><p>YOUR TASK</p></div><div class="content-box"><ul><li>• Write a focused problem statement</li><li>• Set one or more measurable objectives</li><li>• Record the dataset source</li><li>• Explain important columns and data types</li><li>• Load data and inspect the first rows</li></ul></div><div class="content-box"><p>STARTER CHECKS</p></div><div class="content-box"><pre><code>df.head()  → first rows
+df.shape  → rows and columns
+df.info()  → data types / non-null counts
+df.dtypes  → type of each column
+df.describe()  → numerical summary</code></pre></div><div class="content-box"><p>Checkpoint: Can you explain what each column means and why it is relevant to your question?</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="6"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 6 of 26</div>
+</div></section>
+
+<section class="chapter" id="s7" data-slide="7" data-search="phase 2 · 20 marks clean, wrangle and explore good analysis begins with checking data quality — not assuming the data is perfect. aml002 · introduction to data science · capstone assignment 7 check quality • missing values
+• duplicate rows
+• incorrect data types
+• inconsistent labels
+• unusual values / outliers use pandas df.isnull().sum()
+df.duplicated().sum()
+df.describe()
+df[&#x27;column&#x27;].value_counts()
+
+choose a treatment and explain why. ask questions • which group has a higher average?
+• are values spread out?
+• are there unusual observations?
+• what patterns need a chart? important: never delete or replace data blindly. explain the decision you make.">
+<div class="head"><div class="num">07</div><div><small>PHASE 2 · 20 MARKS</small><h2>Clean, wrangle and explore</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Good analysis begins with checking data quality — not assuming the data is perfect.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>7</p></div><div class="content-box"><p>CHECK QUALITY</p></div><div class="content-box"><ul><li>• Missing values</li><li>• Duplicate rows</li><li>• Incorrect data types</li><li>• Inconsistent labels</li><li>• Unusual values / outliers</li></ul></div><div class="content-box"><p>USE PANDAS</p></div><div class="content-box"><pre><code>df.isnull().sum()
+df.duplicated().sum()
+df.describe()
+df[&#x27;column&#x27;].value_counts()
+Choose a treatment and explain why.</code></pre></div><div class="content-box"><p>ASK QUESTIONS</p></div><div class="content-box"><ul><li>• Which group has a higher average?</li><li>• Are values spread out?</li><li>• Are there unusual observations?</li><li>• What patterns need a chart?</li></ul></div><div class="content-box"><p>Important: never delete or replace data blindly. Explain the decision you make.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="7"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 7 of 26</div>
+</div></section>
+
+<section class="chapter" id="s8" data-slide="8" data-search="phase 3 · 20 marks visualise data and explain insights a chart is useful when it answers a question — not just because it looks attractive. aml002 · introduction to data science · capstone assignment 8 choose a chart bar chart → compare groups
+histogram → distribution
+scatter plot → relationship
+line chart → change over time
+box plot → spread / outliers make it readable • descriptive title
+• labelled axes
+• units where needed
+• readable scale
+• avoid unnecessary decoration interpret it write 2–3 sentences:
+1. what do you observe?
+2. what does it suggest?
+3. what are the limitations? example: compare average marks across attendance groups, then describe the observed pattern carefully.">
+<div class="head"><div class="num">08</div><div><small>PHASE 3 · 20 MARKS</small><h2>Visualise data and explain insights</h2></div></div>
+<div class="card">
+<p class="section-subtitle">A chart is useful when it answers a question — not just because it looks attractive.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>8</p></div><div class="content-box"><p>CHOOSE A CHART</p></div><div class="content-box"><p>Bar chart → compare groups<br>Histogram → distribution<br>Scatter plot → relationship<br>Line chart → change over time<br>Box plot → spread / outliers</p></div><div class="content-box"><p>MAKE IT READABLE</p></div><div class="content-box"><ul><li>• Descriptive title</li><li>• Labelled axes</li><li>• Units where needed</li><li>• Readable scale</li><li>• Avoid unnecessary decoration</li></ul></div><div class="content-box"><p>INTERPRET IT</p></div><div class="content-box"><ol><li>Write 2–3 sentences:</li><li>1. What do you observe?</li><li>2. What does it suggest?</li><li>3. What are the limitations?</li></ol></div><div class="content-box"><p>Example: Compare average marks across attendance groups, then describe the observed pattern carefully.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="8"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 8 of 26</div>
+</div></section>
+
+<section class="chapter" id="s9" data-slide="9" data-search="phase 4 · 20 marks machine learning — only when it fits use a model when your question genuinely involves prediction or another suitable learning task. aml002 · introduction to data science · capstone assignment 9 first decide what are you predicting?
+
+target = the outcome
+features = information used to predict it
+
+avoid using information that would not be available at prediction time. then build • split training and test data
+• choose a suitable algorithm
+• train using training data
+• predict on held-out data
+• compare with a baseline where useful evaluate classification: accuracy, precision, recall, confusion matrix
+
+regression: mae, rmse or r²
+
+choose metrics that fit the task. if prediction is unsuitable for your project, discuss an approved analytical alternative with your faculty.">
+<div class="head"><div class="num">09</div><div><small>PHASE 4 · 20 MARKS</small><h2>Machine Learning — only when it fits</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Use a model when your question genuinely involves prediction or another suitable learning task.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>9</p></div><div class="content-box"><p>FIRST DECIDE</p></div><div class="content-box"><p>What are you predicting?<br>Target = the outcome<br>Features = information used to predict it<br>Avoid using information that would not be available at prediction time.</p></div><div class="content-box"><p>THEN BUILD</p></div><div class="content-box"><ul><li>• Split training and test data</li><li>• Choose a suitable algorithm</li><li>• Train using training data</li><li>• Predict on held-out data</li><li>• Compare with a baseline where useful</li></ul></div><div class="content-box"><p>EVALUATE</p></div><div class="content-box"><p>Classification: accuracy, precision, recall, confusion matrix<br>Regression: MAE, RMSE or R²<br>Choose metrics that fit the task.</p></div><div class="content-box"><p>If prediction is unsuitable for your project, discuss an approved analytical alternative with your faculty.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="9"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 9 of 26</div>
+</div></section>
+
+<section class="chapter" id="s10" data-slide="10" data-search="build in colab recommended notebook structure use markdown cells for explanations and code cells for implementation. aml002 · introduction to data science · capstone assignment 10 part a · data work 1. project title
+2. problem statement + objectives
+3. dataset source + description
+4. import libraries + load data
+5. data inspection
+6. cleaning + wrangling
+7. eda + visualisations part b · explain your work 8. feature engineering (if needed)
+9. model / analytical evaluation
+10. key findings
+11. limitations + future scope
+12. conclusion
+13. references / dataset link run all cells before submission so the notebook opens with visible outputs.">
+<div class="head"><div class="num">10</div><div><small>BUILD IN COLAB</small><h2>Recommended notebook structure</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Use Markdown cells for explanations and code cells for implementation.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>10</p></div><div class="content-box"><p>PART A · DATA WORK</p></div><div class="content-box"><ol><li>1. Project title</li><li>2. Problem statement + objectives</li><li>3. Dataset source + description</li><li>4. Import libraries + load data</li><li>5. Data inspection</li><li>6. Cleaning + wrangling</li><li>7. EDA + visualisations</li></ol></div><div class="content-box"><p>PART B · EXPLAIN YOUR WORK</p></div><div class="content-box"><ol><li>8. Feature engineering (if needed)</li><li>9. Model / analytical evaluation</li><li>10. Key findings</li><li>11. Limitations + future scope</li><li>12. Conclusion</li><li>13. References / dataset link</li></ol></div><div class="content-box"><p>Run all cells before submission so the notebook opens with visible outputs.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="10"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 10 of 26</div>
+</div></section>
+
+<section class="chapter" id="s11" data-slide="11" data-search="first practical step load and inspect your dataset this is starter code. replace the filename with the csv you actually upload. aml002 · introduction to data science · capstone assignment 11 import pandas as pd
+
+# load your csv file
+df = pd.read_csv(&quot;/content/your_dataset.csv&quot;)
+
+# inspect the dataset
+print(&quot;shape:&quot;, df.shape)
+display(df.head())
+df.info()
+
+# check data quality
+print(df.isnull().sum())
+print(&quot;duplicate rows:&quot;, df.duplicated().sum())
+
+# summarise numerical columns
+display(df.describe()) 1 · upload open google colab and upload your csv. 2 · run run the cell and inspect the output. 3 · explain write what the shape and columns tell you.">
+<div class="head"><div class="num">11</div><div><small>FIRST PRACTICAL STEP</small><h2>Load and inspect your dataset</h2></div></div>
+<div class="card">
+<p class="section-subtitle">This is starter code. Replace the filename with the CSV you actually upload.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>11</p></div><div class="content-box"><pre><code>import pandas as pd
+# Load your CSV file
+df = pd.read_csv(&quot;/content/your_dataset.csv&quot;)
+# Inspect the dataset
+print(&quot;Shape:&quot;, df.shape)
+display(df.head())
+df.info()
+# Check data quality
+print(df.isnull().sum())
+print(&quot;Duplicate rows:&quot;, df.duplicated().sum())
+# Summarise numerical columns
+display(df.describe())</code></pre></div><div class="content-box"><p>1 · UPLOAD</p></div><div class="content-box"><p>Open Google Colab and upload your CSV.</p></div><div class="content-box"><p>2 · RUN</p></div><div class="content-box"><p>Run the cell and inspect the output.</p></div><div class="content-box"><p>3 · EXPLAIN</p></div><div class="content-box"><p>Write what the shape and columns tell you.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="11"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 11 of 26</div>
+</div></section>
+
+<section class="chapter" id="s12" data-slide="12" data-search="choose your problem possible project domains select a topic you can explain and a dataset you can responsibly use. aml002 · introduction to data science · capstone assignment 12 education student performance, attendance, course feedback retail product sales, customer reviews, shopping patterns banking credit risk, payment patterns, fraud indicators healthcare readmission patterns or appointment attendance transport ride demand, trip duration, traffic patterns sports / hr player statistics, employee attrition patterns use public / permitted data. avoid exposing personal, confidential or identifiable information.">
+<div class="head"><div class="num">12</div><div><small>CHOOSE YOUR PROBLEM</small><h2>Possible project domains</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Select a topic you can explain and a dataset you can responsibly use.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>12</p></div><div class="content-box"><p>EDUCATION</p></div><div class="content-box"><p>Student performance, attendance, course feedback</p></div><div class="content-box"><p>RETAIL</p></div><div class="content-box"><p>Product sales, customer reviews, shopping patterns</p></div><div class="content-box"><p>BANKING</p></div><div class="content-box"><p>Credit risk, payment patterns, fraud indicators</p></div><div class="content-box"><p>HEALTHCARE</p></div><div class="content-box"><p>Readmission patterns or appointment attendance</p></div><div class="content-box"><p>TRANSPORT</p></div><div class="content-box"><p>Ride demand, trip duration, traffic patterns</p></div><div class="content-box"><p>SPORTS / HR</p></div><div class="content-box"><p>Player statistics, employee attrition patterns</p></div><div class="content-box"><p>Use public / permitted data. Avoid exposing personal, confidential or identifiable information.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="12"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 12 of 26</div>
+</div></section>
+
+<section class="chapter" id="s13" data-slide="13" data-search="submission checklist what you must be ready to show a complete submission includes both implementation and your own explanation. aml002 · introduction to data science · capstone assignment 13 notebook / file ☐ problem statement and objective
+☐ dataset source
+☐ cleaning and analysis code
+☐ tables and meaningful charts
+☐ model / analytical evaluation, if applicable
+☐ findings, limitations and conclusion before you submit ☐ run every cell from top to bottom
+☐ keep outputs visible
+☐ check titles, labels and spelling
+☐ cite your dataset / sources
+☐ ensure the file opens correctly
+☐ submit through the platform specified by faculty do not submit only screenshots, a title, or code you cannot explain.">
+<div class="head"><div class="num">13</div><div><small>SUBMISSION CHECKLIST</small><h2>What you must be ready to show</h2></div></div>
+<div class="card">
+<p class="section-subtitle">A complete submission includes both implementation and your own explanation.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>13</p></div><div class="content-box"><p>NOTEBOOK / FILE</p></div><div class="content-box"><ul><li>☐ Problem statement and objective</li><li>☐ Dataset source</li><li>☐ Cleaning and analysis code</li><li>☐ Tables and meaningful charts</li><li>☐ Model / analytical evaluation, if applicable</li><li>☐ Findings, limitations and conclusion</li></ul></div><div class="content-box"><p>BEFORE YOU SUBMIT</p></div><div class="content-box"><ul><li>☐ Run every cell from top to bottom</li><li>☐ Keep outputs visible</li><li>☐ Check titles, labels and spelling</li><li>☐ Cite your dataset / sources</li><li>☐ Ensure the file opens correctly</li><li>☐ Submit through the platform specified by faculty</li></ul></div><div class="content-box"><p>Do not submit only screenshots, a title, or code you cannot explain.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="13"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 13 of 26</div>
+</div></section>
+
+<section class="chapter" id="s14" data-slide="14" data-search="your turn · 20–30 minutes start your capstone in class complete these first steps independently; ask for guidance when you get stuck. aml002 · introduction to data science · capstone assignment 14 1 · choose a problem write a 2–3 sentence problem statement. 2 · set an objective write one clear question you want to answer. 3 · find a dataset record the source and what each key column means. 4 · open colab create a notebook and load the dataset. 5 · inspect the data show head, shape, info and missing-value counts. 6 · write observations record three initial observations or questions. expected output today: a starter notebook with the problem, dataset and initial inspection.">
+<div class="head"><div class="num">14</div><div><small>YOUR TURN · 20–30 MINUTES</small><h2>Start your capstone in class</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Complete these first steps independently; ask for guidance when you get stuck.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>14</p></div><div class="content-box"><p>1 · Choose a problem</p></div><div class="content-box"><p>Write a 2–3 sentence problem statement.</p></div><div class="content-box"><p>2 · Set an objective</p></div><div class="content-box"><p>Write one clear question you want to answer.</p></div><div class="content-box"><p>3 · Find a dataset</p></div><div class="content-box"><p>Record the source and what each key column means.</p></div><div class="content-box"><p>4 · Open Colab</p></div><div class="content-box"><p>Create a notebook and load the dataset.</p></div><div class="content-box"><p>5 · Inspect the data</p></div><div class="content-box"><p>Show head, shape, info and missing-value counts.</p></div><div class="content-box"><p>6 · Write observations</p></div><div class="content-box"><p>Record three initial observations or questions.</p></div><div class="content-box"><p>Expected output today: a starter notebook with the problem, dataset and initial inspection.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="14"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 14 of 26</div>
+</div></section>
+
+<section class="chapter" id="s15" data-slide="15" data-search="wrap-up three questions to remember use these questions throughout the project. 1 what question am i answering? problem definition · objective · relevant data 2 what does the data actually show? cleaning · analysis · charts · evidence 3 can i explain my decisions? methods · evaluation · limitations · conclusion exit ticket: write one real-world question + one dataset column that could help answer it. aml002 · introduction to data science · school of engineering &amp; technology">
+<div class="head"><div class="num">15</div><div><small>WRAP-UP</small><h2>Three questions to remember</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Use these questions throughout the project.</p>
+<div class="content-grid"><div class="content-box"><p>1</p></div><div class="content-box"><p>What question am I answering?</p></div><div class="content-box"><p>Problem definition · objective · relevant data</p></div><div class="content-box"><p>2</p></div><div class="content-box"><p>What does the data actually show?</p></div><div class="content-box"><p>Cleaning · analysis · charts · evidence</p></div><div class="content-box"><p>3</p></div><div class="content-box"><p>Can I explain my decisions?</p></div><div class="content-box"><p>Methods · evaluation · limitations · conclusion</p></div><div class="content-box"><p>Exit ticket: Write ONE real-world question + ONE dataset column that could help answer it.</p></div><div class="content-box"><p>AML002 · Introduction to Data Science · School of Engineering &amp; Technology</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="15"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 15 of 26</div>
+</div></section>
+
+<section class="chapter" id="s16" data-slide="16" data-search="worked example mini-project: student performance analysis a small, beginner-friendly example that follows the same project workflow. aml002 · introduction to data science · capstone assignment 16 problem + objective problem: teachers want to understand how attendance and assignment scores relate to test marks.
+
+objective: explore patterns in a small sample dataset. sample data student | attendance | assignment | test
+asha | 90% | 8/10 | 17/20
+ravi | 70% | 6/10 | 12/20
+meera | 95% | 9/10 | 19/20
+kabir | 60% | 5/10 | 10/20 initial observation in this tiny example, students with higher attendance and assignment marks also have higher test marks.
+
+this is an observed pattern only—not proof of cause. import pandas as pd
+
+df = pd.dataframe({
+    &quot;student&quot;: [&quot;asha&quot;, &quot;ravi&quot;, &quot;meera&quot;, &quot;kabir&quot;],
+    &quot;attendance&quot;: [90, 70, 95, 60],
+    &quot;assignment&quot;: [8, 6, 9, 5],
+    &quot;test&quot;: [17, 12, 19, 10]
+})
+
+print(df.head())
+print(df[[&quot;attendance&quot;, &quot;assignment&quot;, &quot;test&quot;]].describe()) student task 1. run the code in colab.
+2. add a bar chart or scatter plot.
+3. write 2 observations and 1 limitation.
+4. explain what extra data could improve the study.">
+<div class="head"><div class="num">16</div><div><small>WORKED EXAMPLE</small><h2>Mini-project: Student Performance Analysis</h2></div></div>
+<div class="card">
+<p class="section-subtitle">A small, beginner-friendly example that follows the same project workflow.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>16</p></div><div class="content-box"><p>PROBLEM + OBJECTIVE</p></div><div class="content-box"><p>Problem: Teachers want to understand how attendance and assignment scores relate to test marks.<br>Objective: Explore patterns in a small sample dataset.</p></div><div class="content-box"><p>SAMPLE DATA</p></div><div class="content-box"><p>Student | Attendance | Assignment | Test<br>Asha | 90% | 8/10 | 17/20<br>Ravi | 70% | 6/10 | 12/20<br>Meera | 95% | 9/10 | 19/20<br>Kabir | 60% | 5/10 | 10/20</p></div><div class="content-box"><p>INITIAL OBSERVATION</p></div><div class="content-box"><p>In this tiny example, students with higher attendance and assignment marks also have higher test marks.<br>This is an observed pattern only—not proof of cause.</p></div><div class="content-box"><pre><code>import pandas as pd
+df = pd.DataFrame({
+&quot;Student&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+&quot;Attendance&quot;: [90, 70, 95, 60],
+&quot;Assignment&quot;: [8, 6, 9, 5],
+&quot;Test&quot;: [17, 12, 19, 10]
+})
+print(df.head())
+print(df[[&quot;Attendance&quot;, &quot;Assignment&quot;, &quot;Test&quot;]].describe())</code></pre></div><div class="content-box"><p>STUDENT TASK</p></div><div class="content-box"><ol><li>1. Run the code in Colab.</li><li>2. Add a bar chart or scatter plot.</li><li>3. Write 2 observations and 1 limitation.</li><li>4. Explain what extra data could improve the study.</li></ol></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="16"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 16 of 26</div>
+</div></section>
+
+<section class="chapter" id="s17" data-slide="17" data-search="mini-project output what should your result look like? a good project shows the question, the evidence, and a careful explanation. aml002 · introduction to data science · capstone assignment 17 1 · table show the dataset clearly.
+
+include column names, units and a few rows. explain what each column represents. 2 · chart plot attendance vs test marks, or compare assignment marks with test marks.
+
+add a title and axis labels. 3 · findings example: “in this sample, higher attendance appears alongside higher test marks.”
+
+limitation: only four students are shown. a conclusion should match the evidence. do not claim that attendance causes higher marks from this small sample.">
+<div class="head"><div class="num">17</div><div><small>MINI-PROJECT OUTPUT</small><h2>What should your result look like?</h2></div></div>
+<div class="card">
+<p class="section-subtitle">A good project shows the question, the evidence, and a careful explanation.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>17</p></div><div class="content-box"><p>1 · TABLE</p></div><div class="content-box"><p>Show the dataset clearly.<br>Include column names, units and a few rows. Explain what each column represents.</p></div><div class="content-box"><p>2 · CHART</p></div><div class="content-box"><p>Plot Attendance vs Test marks, or compare assignment marks with test marks.<br>Add a title and axis labels.</p></div><div class="content-box"><p>3 · FINDINGS</p></div><div class="content-box"><p>Example: “In this sample, higher attendance appears alongside higher test marks.”<br>Limitation: only four students are shown.</p></div><div class="content-box"><p>A conclusion should match the evidence. Do not claim that attendance causes higher marks from this small sample.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="17"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 17 of 26</div>
+</div></section>
+
+<section class="chapter" id="s18" data-slide="18" data-search="publish your project how to organise the same project on github github is where you store and present your project files so others can understand your work. aml002 · introduction to data science · capstone assignment 18 student-performance-analysis/
+│
+├── readme.md
+├── student_performance.csv
+├── student_performance_analysis.ipynb
+├── requirements.txt
+└── images/
+    └── attendance_vs_test.png readme.md project overview, question, dataset, steps, findings and how to run. notebook (.ipynb) your code, outputs, charts and explanations. csv + images only permitted sample/public data and useful result charts. never upload student-identifiable data, passwords, api keys or confidential university files.">
+<div class="head"><div class="num">18</div><div><small>PUBLISH YOUR PROJECT</small><h2>How to organise the same project on GitHub</h2></div></div>
+<div class="card">
+<p class="section-subtitle">GitHub is where you store and present your project files so others can understand your work.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>18</p></div><div class="content-box"><p>student-performance-analysis/<br>│<br>├── README.md<br>├── student_performance.csv<br>├── student_performance_analysis.ipynb<br>├── requirements.txt<br>└── images/<br>└── attendance_vs_test.png</p></div><div class="content-box"><p>README.md</p></div><div class="content-box"><p>Project overview, question, dataset, steps, findings and how to run.</p></div><div class="content-box"><p>NOTEBOOK (.ipynb)</p></div><div class="content-box"><p>Your code, outputs, charts and explanations.</p></div><div class="content-box"><p>CSV + IMAGES</p></div><div class="content-box"><p>Only permitted sample/public data and useful result charts.</p></div><div class="content-box"><p>Never upload student-identifiable data, passwords, API keys or confidential university files.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="18"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 18 of 26</div>
+</div></section>
+
+<section class="chapter" id="s19" data-slide="19" data-search="github walkthrough upload your project in 7 simple steps these steps use github in a web browser; no command line is required. aml002 · introduction to data science · capstone assignment 19 1 · create account / sign in open github.com and sign in. 2 · create repository click + → new repository; name it student-performance-analysis. 3 · choose visibility use public only if the project/data may be shared; otherwise choose private. 4 · add files choose add file → upload files; upload readme, notebook and allowed dataset. 5 · write commit message example: “add initial student performance analysis”. click commit changes. 6 · check the page open the notebook and readme; confirm files and charts display correctly. 7 · share the link copy the repository url and include it in your project submission. tip: keep the repository name simple, use clear file names, and update the readme as your project improves.">
+<div class="head"><div class="num">19</div><div><small>GITHUB WALKTHROUGH</small><h2>Upload your project in 7 simple steps</h2></div></div>
+<div class="card">
+<p class="section-subtitle">These steps use GitHub in a web browser; no command line is required.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>19</p></div><div class="content-box"><p>1 · Create account / sign in</p></div><div class="content-box"><p>Open github.com and sign in.</p></div><div class="content-box"><p>2 · Create repository</p></div><div class="content-box"><p>Click + → New repository; name it student-performance-analysis.</p></div><div class="content-box"><p>3 · Choose visibility</p></div><div class="content-box"><p>Use Public only if the project/data may be shared; otherwise choose Private.</p></div><div class="content-box"><p>4 · Add files</p></div><div class="content-box"><p>Choose Add file → Upload files; upload README, notebook and allowed dataset.</p></div><div class="content-box"><p>5 · Write commit message</p></div><div class="content-box"><p>Example: “Add initial student performance analysis”. Click Commit changes.</p></div><div class="content-box"><p>6 · Check the page</p></div><div class="content-box"><p>Open the notebook and README; confirm files and charts display correctly.</p></div><div class="content-box"><p>7 · Share the link</p></div><div class="content-box"><p>Copy the repository URL and include it in your project submission.</p></div><div class="content-box"><p>Tip: Keep the repository name simple, use clear file names, and update the README as your project improves.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="19"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 19 of 26</div>
+</div></section>
+
+<section class="chapter" id="s20" data-slide="20" data-search="copy-and-adapt example what to write in readme.md students can use this outline and replace the details with their own project information. aml002 · introduction to data science · capstone assignment 20 # student performance analysis
+
+## 1. project overview
+this beginner project explores patterns between attendance,
+assignment scores and test marks in a small sample dataset.
+
+## 2. research question
+how are attendance and assignment scores associated with test marks?
+
+## 3. dataset
+a small illustrative dataset created for learning.
+it contains student, attendance, assignment and test columns.
+
+## 4. tools
+python, pandas, matplotlib, google colab and github.
+
+## 5. steps
+- load and inspect the data
+- summarise columns
+- create charts
+- record observations and limitations
+
+## 6. key finding
+in this small example, higher attendance and assignment scores
+appear alongside higher test marks. this is not proof of causation.
+
+## 7. limitation
+only four sample records are used; results cannot be generalised. how to add it in your repository, click add file → create new file. name it readme.md and paste your edited text. before publishing replace sample details with your own work. do not claim findings you have not tested.">
+<div class="head"><div class="num">20</div><div><small>COPY-AND-ADAPT EXAMPLE</small><h2>What to write in README.md</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Students can use this outline and replace the details with their own project information.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>20</p></div><div class="content-box"><p># Student Performance Analysis<br>## 1. Project Overview<br>This beginner project explores patterns between attendance,<br>assignment scores and test marks in a small sample dataset.<br>## 2. Research Question<br>How are attendance and assignment scores associated with test marks?<br>## 3. Dataset<br>A small illustrative dataset created for learning.<br>It contains Student, Attendance, Assignment and Test columns.<br>## 4. Tools<br>Python, Pandas, Matplotlib, Google Colab and GitHub.<br>## 5. Steps<br>- Load and inspect the data<br>- Summarise columns<br>- Create charts<br>- Record observations and limitations<br>## 6. Key Finding<br>In this small example, higher attendance and assignment scores<br>appear alongside higher test marks. This is not proof of causation.<br>## 7. Limitation<br>Only four sample records are used; results cannot be generalised.</p></div><div class="content-box"><p>HOW TO ADD IT</p></div><div class="content-box"><p>In your repository, click Add file → Create new file. Name it README.md and paste your edited text.</p></div><div class="content-box"><p>BEFORE PUBLISHING</p></div><div class="content-box"><p>Replace sample details with your own work. Do not claim findings you have not tested.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="20"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 20 of 26</div>
+</div></section>
+
+<section class="chapter" id="s21" data-slide="21" data-search="project + github checklist before you submit, check these five things 01 question is clear the objective matches the analysis. 02 code runs restart and run all notebook cells. 03 evidence is visible tables and charts have titles / labels. 04 readme explains it a reader can understand the project without asking you. 05 repository is safe no personal student data, secrets or restricted files. exit ticket: share your project question, one insight, and your github repository link.">
+<div class="head"><div class="num">21</div><div><small>PROJECT + GITHUB CHECKLIST</small><h2>Before you submit, check these five things</h2></div></div>
+<div class="card">
+<p class="section-subtitle">01</p>
+<div class="content-grid"><div class="content-box"><p>Question is clear</p></div><div class="content-box"><p>The objective matches the analysis.</p></div><div class="content-box"><p>02</p></div><div class="content-box"><p>Code runs</p></div><div class="content-box"><p>Restart and run all notebook cells.</p></div><div class="content-box"><p>03</p></div><div class="content-box"><p>Evidence is visible</p></div><div class="content-box"><p>Tables and charts have titles / labels.</p></div><div class="content-box"><p>04</p></div><div class="content-box"><p>README explains it</p></div><div class="content-box"><p>A reader can understand the project without asking you.</p></div><div class="content-box"><p>05</p></div><div class="content-box"><p>Repository is safe</p></div><div class="content-box"><p>No personal student data, secrets or restricted files.</p></div><div class="content-box"><p>Exit ticket: Share your project question, one insight, and your GitHub repository link.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="21"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 21 of 26</div>
+</div></section>
+
+<section class="chapter" id="s22" data-slide="22" data-search="data collection where can you find a dataset? choose a dataset that helps answer your question and is permitted for educational use. aml002 · introduction to data science · capstone assignment 22 kaggle visit kaggle.com/datasets.
+search: “student performance”, “sales”, “customer reviews” or a topic you like.
+open a dataset page and review its description. other sources uci machine learning repository
+google dataset search
+data.gov / government open-data portals
+world bank open data
+official organisation open-data portals check before using • what does each row represent?
+• what do the columns mean?
+• is the dataset complete enough?
+• is reuse permitted by its licence/terms? for our running example, search for a student performance dataset with marks, attendance or study-related columns. dataset choice should follow the research question—not the other way around. if your dataset has no attendance column, do not claim to analyse attendance.">
+<div class="head"><div class="num">22</div><div><small>DATA COLLECTION</small><h2>Where can you find a dataset?</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Choose a dataset that helps answer your question and is permitted for educational use.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>22</p></div><div class="content-box"><p>KAGGLE</p></div><div class="content-box"><p>Visit kaggle.com/datasets.<br>Search: “student performance”, “sales”, “customer reviews” or a topic you like.<br>Open a dataset page and review its description.</p></div><div class="content-box"><p>OTHER SOURCES</p></div><div class="content-box"><p>UCI Machine Learning Repository<br>Google Dataset Search<br>Data.gov / government open-data portals<br>World Bank Open Data<br>Official organisation open-data portals</p></div><div class="content-box"><p>CHECK BEFORE USING</p></div><div class="content-box"><ul><li>• What does each row represent?</li><li>• What do the columns mean?</li><li>• Is the dataset complete enough?</li><li>• Is reuse permitted by its licence/terms?</li></ul></div><div class="content-box"><p>For our running example, search for a student performance dataset with marks, attendance or study-related columns.</p></div><div class="content-box"><p>Dataset choice should follow the research question—not the other way around. If your dataset has no attendance column, do not claim to analyse attendance.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="22"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 22 of 26</div>
+</div></section>
+
+<section class="chapter" id="s23" data-slide="23" data-search="kaggle walkthrough how to download a dataset from kaggle browser-based steps for beginners; the exact button labels may vary by page. aml002 · introduction to data science · capstone assignment 23 1 · search open kaggle datasets and search “students performance in exams”. 2 · review read the description, column names, source and licence / terms. 3 · sign in sign in or create an account if kaggle asks you to. 4 · download click download on the dataset page; it may arrive as a zip file. 5 · extract unzip the downloaded file and locate the csv file. 6 · open in colab upload the csv using the files panel, then read it with pandas. example code: df = pd.read_csv(&#x27;/content/studentsperformance.csv&#x27;)
+use the exact filename you downloaded; it may be different.">
+<div class="head"><div class="num">23</div><div><small>KAGGLE WALKTHROUGH</small><h2>How to download a dataset from Kaggle</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Browser-based steps for beginners; the exact button labels may vary by page.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>23</p></div><div class="content-box"><p>1 · Search</p></div><div class="content-box"><p>Open Kaggle Datasets and search “Students Performance in Exams”.</p></div><div class="content-box"><p>2 · Review</p></div><div class="content-box"><p>Read the description, column names, source and licence / terms.</p></div><div class="content-box"><p>3 · Sign in</p></div><div class="content-box"><p>Sign in or create an account if Kaggle asks you to.</p></div><div class="content-box"><p>4 · Download</p></div><div class="content-box"><p>Click Download on the dataset page; it may arrive as a ZIP file.</p></div><div class="content-box"><p>5 · Extract</p></div><div class="content-box"><p>Unzip the downloaded file and locate the CSV file.</p></div><div class="content-box"><p>6 · Open in Colab</p></div><div class="content-box"><p>Upload the CSV using the Files panel, then read it with pandas.</p></div><div class="content-box"><pre><code>Example code: df = pd.read_csv(&#x27;/content/StudentsPerformance.csv&#x27;)
+Use the exact filename you downloaded; it may be different.</code></pre></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="23"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 23 of 26</div>
+</div></section>
+
+<section class="chapter" id="s24" data-slide="24" data-search="responsible data use record the source and check permission a project should make it clear where the data came from and how it may be used. aml002 · introduction to data science · capstone assignment 24 in your notebook write the dataset name, source url, download date if relevant, number of rows/columns and important fields. in readme.md add a dataset section with a link to the original page and any required attribution or licence notes. be careful do not assume every dataset is free to redistribute. if terms are unclear, link to the source instead of uploading the raw file. never upload real student records, personal information, confidential files, or data you are not allowed to share.">
+<div class="head"><div class="num">24</div><div><small>RESPONSIBLE DATA USE</small><h2>Record the source and check permission</h2></div></div>
+<div class="card">
+<p class="section-subtitle">A project should make it clear where the data came from and how it may be used.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>24</p></div><div class="content-box"><p>IN YOUR NOTEBOOK</p></div><div class="content-box"><p>Write the dataset name, source URL, download date if relevant, number of rows/columns and important fields.</p></div><div class="content-box"><p>IN README.md</p></div><div class="content-box"><p>Add a Dataset section with a link to the original page and any required attribution or licence notes.</p></div><div class="content-box"><p>BE CAREFUL</p></div><div class="content-box"><p>Do not assume every dataset is free to redistribute. If terms are unclear, link to the source instead of uploading the raw file.</p></div><div class="content-box"><p>Never upload real student records, personal information, confidential files, or data you are not allowed to share.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="24"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 24 of 26</div>
+</div></section>
+
+<section class="chapter" id="s25" data-slide="25" data-search="reference projects github examples students can study use these to learn how projects are organised; do your own analysis and write your own conclusions. aml002 · introduction to data science · capstone assignment 25 1 · beginner-friendly project student performance analyzer — csv, notebook, charts and readme.
+https://github.com/anjalianjalipillai-web/student-performance-analyzer 2 · kaggle dataset project student performance analysis — notebook and studentsperformance.csv.
+https://github.com/tharaknath755-gif/student-performance-analysis 3 · full eda example student performance analysis — cleaning, eda, visualisations and project structure.
+https://github.com/ghumen-saab/student-performance-analysis 4 · google colab notebook student performance indicator notebook can be viewed in colab.
+https://colab.research.google.com/github/aueskinj/data-science-projects/blob/main/eda_student_performance_.ipynb ask students to inspect the readme, notebook, dataset description, charts and limitations. treat the projects as references—not templates to copy.">
+<div class="head"><div class="num">25</div><div><small>REFERENCE PROJECTS</small><h2>GitHub examples students can study</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Use these to learn how projects are organised; do your own analysis and write your own conclusions.</p>
+<div class="content-grid"><div class="content-box"><p>AML002 · Introduction to Data Science · Capstone Assignment</p></div><div class="content-box"><p>25</p></div><div class="content-box"><p>1 · BEGINNER-FRIENDLY PROJECT</p></div><div class="content-box"><p>Student Performance Analyzer — CSV, notebook, charts and README.<br><a href="https://github.com/anjalianjalipillai-web/student-performance-analyzer" target="_blank" rel="noopener noreferrer">https://github.com/anjalianjalipillai-web/student-performance-analyzer</a></p></div><div class="content-box"><p>2 · KAGGLE DATASET PROJECT</p></div><div class="content-box"><p>Student Performance Analysis — notebook and StudentsPerformance.csv.<br><a href="https://github.com/tharaknath755-gif/Student-Performance-Analysis" target="_blank" rel="noopener noreferrer">https://github.com/tharaknath755-gif/Student-Performance-Analysis</a></p></div><div class="content-box"><p>3 · FULL EDA EXAMPLE</p></div><div class="content-box"><p>Student Performance Analysis — cleaning, EDA, visualisations and project structure.<br><a href="https://github.com/ghumen-saab/student-performance-analysis" target="_blank" rel="noopener noreferrer">https://github.com/ghumen-saab/student-performance-analysis</a></p></div><div class="content-box"><p>4 · GOOGLE COLAB NOTEBOOK</p></div><div class="content-box"><p>Student Performance Indicator notebook can be viewed in Colab.<br><a href="https://colab.research.google.com/github/aueskinj/Data-Science-Projects/blob/main/EDA_STUDENT_PERFORMANCE_.ipynb" target="_blank" rel="noopener noreferrer">https://colab.research.google.com/github/aueskinj/Data-Science-Projects/blob/main/EDA_STUDENT_PERFORMANCE_.ipynb</a></p></div><div class="content-box"><p>Ask students to inspect the README, notebook, dataset description, charts and limitations. Treat the projects as references—not templates to copy.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="25"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 25 of 26</div>
+</div></section>
+
+<section class="chapter" id="s26" data-slide="26" data-search="final guidance learn from references. build your own project. students may learn the workflow and repository structure, but their project should contain their own question, analysis and explanation. 01 choose a question pick one clear, answerable question. 02 find a suitable dataset check the columns, quality, licence and source. 03 analyse independently clean, explore, visualise and interpret the data. 04 document transparently cite the source and explain the method and limitations. 05 publish responsibly upload only permitted files and share the repository url. exit task: find one dataset and one reference repository; bring both links to the next class.">
+<div class="head"><div class="num">26</div><div><small>FINAL GUIDANCE</small><h2>Learn from references. Build your own project.</h2></div></div>
+<div class="card">
+<p class="section-subtitle">Students may learn the workflow and repository structure, but their project should contain their own question, analysis and explanation.</p>
+<div class="content-grid"><div class="content-box"><p>01</p></div><div class="content-box"><p>Choose a question</p></div><div class="content-box"><p>Pick one clear, answerable question.</p></div><div class="content-box"><p>02</p></div><div class="content-box"><p>Find a suitable dataset</p></div><div class="content-box"><p>Check the columns, quality, licence and source.</p></div><div class="content-box"><p>03</p></div><div class="content-box"><p>Analyse independently</p></div><div class="content-box"><p>Clean, explore, visualise and interpret the data.</p></div><div class="content-box"><p>04</p></div><div class="content-box"><p>Document transparently</p></div><div class="content-box"><p>Cite the source and explain the method and limitations.</p></div><div class="content-box"><p>05</p></div><div class="content-box"><p>Publish responsibly</p></div><div class="content-box"><p>Upload only permitted files and share the repository URL.</p></div><div class="content-box"><p>Exit task: Find one dataset and one reference repository; bring both links to the next class.</p></div></div>
+<label class="checkline"><input type="checkbox" class="review-check" data-check="26"> Mark this section as reviewed</label>
+<div class="slide-meta">AML002 · Introduction to Data Science · Capstone Assignment · Reference section 26 of 26</div>
+</div></section>
+<div class="footer"><b>AML002 · Introduction to Data Science</b><br>Capstone Assignment — Interactive Student Reference Notes<br><br>Use public/permitted datasets, cite the original source, and submit work you can explain independently.</div>
+</main></div>
+<script>
+const searchBox = document.getElementById('searchBox');
+const sections = [...document.querySelectorAll('.chapter')];
+const navLinks = [...document.querySelectorAll('[data-nav-slide]')];
+const emptyState = document.getElementById('emptyState');
+function applySearch(){
+  const q = searchBox.value.trim().toLowerCase();
+  let visible = 0;
+  sections.forEach(s=>{
+    const match = !q || (s.dataset.search || s.innerText).toLowerCase().includes(q);
+    s.style.display = match ? '' : 'none';
+    if(match) visible++;
+  });
+  navLinks.forEach(a=>{
+    const s = document.getElementById('s'+a.dataset.navSlide);
+    a.style.display = !q || (s && s.style.display !== 'none') ? '' : 'none';
+  });
+  emptyState.style.display = visible ? 'none' : 'block';
+}
+searchBox.addEventListener('input', applySearch);
+document.getElementById('clearSearch').addEventListener('click',()=>{searchBox.value='';applySearch();searchBox.focus();});
+const checks = [...document.querySelectorAll('.review-check')];
+function updateProgress(){
+  const done = checks.filter(c=>c.checked).length;
+  document.getElementById('progressText').textContent = `${done} of ${checks.length} reviewed`;
+  document.getElementById('progressBar').style.width = `${done/checks.length*100}%`;
+}
+checks.forEach(c=>{
+  c.addEventListener('change',updateProgress);
+  // Progress is intentionally kept only in this open page; no account or server is needed.
+});
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id));
+    }
+  });
+},{rootMargin:'-20% 0px -70% 0px'});
+sections.forEach(s=>observer.observe(s));
+</script></body></html>
